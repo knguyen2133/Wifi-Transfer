@@ -9,9 +9,9 @@ import scan
 
 def tossUp(addr, res):
     if res < 5:
-        server.serverBt()
+        bt_server.serverBt()
     else:
-        client.clientBt(addr)
+        bt_client.clientBt(addr)
 
 
 def randomGenerator():
