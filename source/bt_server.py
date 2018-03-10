@@ -10,7 +10,7 @@ import time, threading, socket
 
 def serverTxThread(client_sock):
     try:
-        sendData = socket.getfqdn()
+        sendData =  socket.gethostbyname(socket.gethostbyname())
         client_sock.send(sendData)
 
         time.sleep(1)
