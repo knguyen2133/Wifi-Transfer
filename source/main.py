@@ -3,8 +3,8 @@ from bluetooth import *
 
 import random, time
 
-import server
-import client
+import bt_server
+import bt_client
 import scan
 
 def tossUp(addr, res):
