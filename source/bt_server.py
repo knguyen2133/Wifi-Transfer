@@ -17,7 +17,7 @@ def serverTxThread(client_sock, ipQueue):
         print("Tx Failed")
         pass
 
-    ipQueue.put(data)
+    ipQueue.put(sendData)
 
 def serverRxThread(client_sock):
     try:
