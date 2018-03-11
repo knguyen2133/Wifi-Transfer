@@ -60,9 +60,9 @@ def serverBt():
         serverRx.start()
     except:
         print("Unable to start Server Thread")
-
-    serverTx.join()
-    serverRx.join()
+    while (serverTx.is_alive() == True or serverRx.is_alive() == True):
+        serverTx.join()
+        serverRx.join()
 
     print("Disconnected\n\n")
 
