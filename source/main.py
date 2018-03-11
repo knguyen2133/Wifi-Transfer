@@ -41,7 +41,7 @@ def main():
         try:
             if addr != False:
                 res = randomGenerator()
-                ip = tossUp(addr, res)
+                ip = btTossUp(addr, res)
 
             time.sleep(1)
         except BluetoothError:
