@@ -3,8 +3,8 @@ from bluetooth import *
 
 import random, time, socket
 
-import bt_server
-import bt_client
+import bt_server, bt_client
+import wifi_server, wifi_client
 import scan
 
 def wifiTossUp(ip, res):
@@ -13,7 +13,7 @@ def wifiTossUp(ip, res):
     if res < 5:
         wifi_server.hostServer(s, ip)
     else:
-        wifi_server.hostClient(s, ip)
+        wifi_client.hostClient(s, ip)
 
 def btTossUp(addr, res):
     ip = 0
