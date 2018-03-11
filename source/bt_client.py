@@ -6,11 +6,11 @@
 # $Id: rfcomm-client.py 424 2006-08-24 03:35:54Z albert $
 
 from bluetooth import *
-import sys, time, threading, socket
+import sys, time, threading, socket, wifi
 
 def clientTxThread(sock):
     try:
-        sendData = socket.gethostbyname(socket.gethostbyname())
+        sendData = wifi.get_lan_ip()
         sock.send(sendData)
 
         time.sleep(1)
