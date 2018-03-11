@@ -6,11 +6,11 @@
 # $Id: rfcomm-client.py 424 2006-08-24 03:35:54Z albert $
 
 from bluetooth import *
-import sys, time, threading, socket, wifi, Queue
+import sys, time, threading, socket, network_ip, Queue
 
 def clientTxThread(sock):
     try:
-        sendData = wifi.get_lan_ip()
+        sendData = network_ip.getIp()
         sock.send(sendData)
 
         time.sleep(1)
@@ -31,7 +31,7 @@ def clientRxThread(sock, ipQueue):
 
     ipQueue.put(data)
 
-def clientBt(addr):
+def hostClientBt(addr):
     print("You are Client")
 
     uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
@@ -54,6 +54,7 @@ def clientBt(addr):
 
     print("Connected")
     ipQueue = Queue.Queue()
+    ip = 0
 
     try:
         clientRx = threading.Thread(target = clientRxThread, args=(sock,ipQueue,))
@@ -73,6 +74,5 @@ def clientBt(addr):
     sock.close()
 
     ip = ipQueue.get()
-    print ip
 
     return ip

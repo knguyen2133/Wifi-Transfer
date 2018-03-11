@@ -5,11 +5,11 @@
 # $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
 
 from bluetooth import *
-import time, threading, socket, wifi, Queue
+import time, threading, socket, network_ip, Queue
 
 def serverTxThread(client_sock):
     try:
-        sendData =  wifi.get_lan_ip()
+        sendData =  network_ip.getIp()
         client_sock.send(sendData)
 
         time.sleep(1)
@@ -30,7 +30,7 @@ def serverRxThread(client_sock, ipQueue):
 
     ipQueue.put(data)
 
-def serverBt():
+def hostServerBt():
     print("You are Server")
 
     server_sock=BluetoothSocket( RFCOMM )
@@ -52,8 +52,10 @@ def serverBt():
 
     server_sock.settimeout(7);
     client_sock, client_info = server_sock.accept()
+
     print("Accepted connection from ", client_info)
     ipQueue = Queue.Queue()
+    ip = 0
 
     try:
         serverRx = threading.Thread(target = serverRxThread, args=(client_sock,ipQueue,))
@@ -73,6 +75,5 @@ def serverBt():
     server_sock.close()
 
     ip = ipQueue.get()
-    print ip
 
     return ip
