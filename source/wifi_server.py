@@ -1,10 +1,10 @@
 import socket
 
 def hostServer(s, ip):
-    s.bind((ip, 8080))
+    s.bind(('192.168.1.88', 8080))
     s.listen(1)
     conn, addr = s.accept()
-    print 'Connected by', addr
+    print 'Wifi Connected'
     #while 1:
     data = conn.recv(1024)
     print data

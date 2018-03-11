@@ -69,8 +69,6 @@ def hostClientBt(addr):
         clientRx.join()
         clientTx.join()
 
-    print("Disconnected\n\n")
-
     sock.close()
 
     ip = ipQueue.get()

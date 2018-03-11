@@ -7,7 +7,7 @@
 from bluetooth import *
 import time, threading, socket, network_ip, Queue
 
-def serverTxThread(client_sock):
+def serverTxThread(client_sock, ipQueue):
     try:
         sendData =  network_ip.getIp()
         client_sock.send(sendData)
@@ -16,6 +16,8 @@ def serverTxThread(client_sock):
     except IOError:
         print("Tx Failed")
         pass
+
+    ipQueue.put(data)
 
 def serverRxThread(client_sock, ipQueue):
     try:
@@ -27,8 +29,6 @@ def serverRxThread(client_sock, ipQueue):
     except IOError:
         print("Rx Failed")
         pass
-
-    ipQueue.put(data)
 
 def hostServerBt():
     print("You are Server")
@@ -68,8 +68,6 @@ def hostServerBt():
     while (serverTx.is_alive() == True or serverRx.is_alive() == True):
         serverRx.join()
         serverTx.join()
-
-    print("Disconnected\n\n")
 
     client_sock.close()
     server_sock.close()
