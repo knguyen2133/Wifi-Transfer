@@ -60,10 +60,10 @@ def clientBt(addr):
         clientRx.start()
     except:
         print("Unable to start Client Thread")
-    while True:
-        if(False):
-            print("1");
 
+    clientTx.join()
+    clientRx.join()
+    
     print("Disconnected\n\n")
 
     sock.close()

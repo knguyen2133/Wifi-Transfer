@@ -58,13 +58,11 @@ def serverBt():
         serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
         serverTx.start()
         serverRx.start()
-
     except:
         print("Unable to start Server Thread")
 
-    while True:
-        if(False):
-            print("1");
+    serverTx.join()
+    serverRx.join()
 
     print("Disconnected\n\n")
 

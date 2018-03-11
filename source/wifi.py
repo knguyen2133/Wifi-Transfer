@@ -19,6 +19,7 @@ def get_lan_ip():
             "eth2",
             "wlan0",
             "wlan1",
+            "wlp2s0",
             "wifi0",
             "ath0",
             "ath1",
