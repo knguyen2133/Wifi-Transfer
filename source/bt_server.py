@@ -19,7 +19,7 @@ def serverTxThread(client_sock, ipQueue):
 
     ipQueue.put(data)
 
-def serverRxThread(client_sock, ipQueue):
+def serverRxThread(client_sock):
     try:
         data = client_sock.recv(1024)
         if len(data) == 0: pass
@@ -58,8 +58,8 @@ def hostServerBt():
     ip = 0
 
     try:
-        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,ipQueue,))
-        serverTx = threading.Thread(target = serverTxThread, args=(client_sock,))
+        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
+        serverTx = threading.Thread(target = serverTxThread, args=(client_sock,ipQueue,))
         serverRx.start()
         serverTx.start()
     except:
