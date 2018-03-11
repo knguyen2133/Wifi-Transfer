@@ -5,7 +5,7 @@
 # $Id: rfcomm-server.py 518 2007-08-10 07:20:07Z albert $
 
 from bluetooth import *
-import time, threading, socket, wifi
+import time, threading, socket, wifi, Queue
 
 def serverTxThread(client_sock):
     try:
@@ -17,17 +17,18 @@ def serverTxThread(client_sock):
         print("Tx Failed")
         pass
 
-def serverRxThread(client_sock):
+def serverRxThread(client_sock, ipQueue):
     try:
-        while True:
-            data = client_sock.recv(1024)
-            if len(data) == 0: break
-            print("Client IP: %s" % data)
+        data = client_sock.recv(1024)
+        if len(data) == 0: pass
+        print("Client IP: %s" % data)
 
-            time.sleep(1)
+        time.sleep(1)
     except IOError:
         print("Rx Failed")
         pass
+
+    ipQueue.put(data)
 
 def serverBt():
     print("You are Server")
@@ -52,19 +53,26 @@ def serverBt():
     server_sock.settimeout(7);
     client_sock, client_info = server_sock.accept()
     print("Accepted connection from ", client_info)
+    ipQueue = queue.Queue()
 
     try:
+        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,ipQueue,))
         serverTx = threading.Thread(target = serverTxThread, args=(client_sock,))
-        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
-        serverTx.start()
         serverRx.start()
+        serverTx.start()
     except:
         print("Unable to start Server Thread")
+
     while (serverTx.is_alive() == True or serverRx.is_alive() == True):
-        serverTx.join()
         serverRx.join()
+        serverTx.join()
 
     print("Disconnected\n\n")
 
     client_sock.close()
     server_sock.close()
+
+    ip = ipQueue.get()
+    print ip
+
+    return ip
