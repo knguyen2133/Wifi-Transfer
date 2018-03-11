@@ -53,7 +53,7 @@ def clientBt(addr):
     sock.connect((host, port))
 
     print("Connected")
-    ipQueue = queue.Queue()
+    ipQueue = Queue.Queue()
 
     try:
         clientRx = threading.Thread(target = clientRxThread, args=(sock,ipQueue,))

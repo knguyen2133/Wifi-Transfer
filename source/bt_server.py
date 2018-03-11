@@ -53,7 +53,7 @@ def serverBt():
     server_sock.settimeout(7);
     client_sock, client_info = server_sock.accept()
     print("Accepted connection from ", client_info)
-    ipQueue = queue.Queue()
+    ipQueue = Queue.Queue()
 
     try:
         serverRx = threading.Thread(target = serverRxThread, args=(client_sock,ipQueue,))
