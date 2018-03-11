@@ -1,7 +1,7 @@
 import socket
 
 def hostClient(s, ip):
-    s.connect(('192.168.1.88', 8080))
+    s.connect((ip, 8080))
     print ('I am Client')
     print ('Wifi Connected')
     while True:
