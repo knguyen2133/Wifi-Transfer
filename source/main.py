@@ -8,12 +8,10 @@ import wifi_server, wifi_client
 import scan
 
 def wifiTossUp(ip, res):
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
     if res < 5:
-        wifi_server.hostServer(s, ip)
+        wifi_server.hostServer(ip)
     else:
-        wifi_client.hostClient(s, ip)
+        wifi_client.hostClient(ip)
 
 def btTossUp(addr, res):
     ip = 0

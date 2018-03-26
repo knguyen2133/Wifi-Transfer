@@ -7,6 +7,7 @@
 
 from bluetooth import *
 import sys, time, threading, socket, network_ip, Queue
+import port
 
 def clientTxThread(sock):
     try:
@@ -50,7 +51,7 @@ def hostClientBt(addr):
 
     # Create the client socket
     sock=BluetoothSocket( RFCOMM )
-    sock.connect((host, port))
+    sock.connect((host, port.PORT))
 
     print("Connected")
     ipQueue = Queue.Queue()

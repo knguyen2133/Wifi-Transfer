@@ -1,16 +1,41 @@
-import socket
+# coding: utf-8
+import socket, os, threading, sys, string
+import controller, port
 
-def hostServer(s, ip):
-    s.bind((ip, 8080))
-    s.listen(1)
-    conn, addr = s.accept()
+port = port.PORT
+size = 1024
+backlog = 5
+myPath = os.path.dirname(os.path.realpath(__file__)) + '/server/'
 
-    print ('I am Server')
-    print 'Wifi Connected'
-    #while 1:
-    data = conn.recv(1024)
-    print data
-    if data == "Ping":
-        print "Pong!"
+def socketInit(ip):
+    serverID = socket.gethostbyname(socket.gethostname())
+    info = 'SERVER ID: {} port: {}'.format(serverID, port)
+    print info
 
-    conn.close()
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.bind((ip,port))
+    sock.listen(backlog)
+    #sock.setblocking(0)
+
+    return sock
+
+def hostServer(ip):
+    sock = socketInit(ip)
+    client, address = sock.accept()
+    #client.setblocking(0)
+    print('Connected')
+
+    try:
+        serverRx = threading.Thread(target = controller.rxThread, args=(client, myPath, "server"))
+        serverTx = threading.Thread(target = controller.txThread, args=(client, myPath))
+        serverRx.start()
+        serverTx.start()
+    except:
+        print("Unable to start Server Thread")
+
+    while (serverTx.is_alive() == True or serverRx.is_alive() == True):
+        serverRx.join()
+        serverTx.join()
+
+    client.close()
+    sock.close()
