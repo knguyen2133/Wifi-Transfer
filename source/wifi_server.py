@@ -9,20 +9,18 @@ myPath = os.path.dirname(os.path.realpath(__file__)) + '/server/'
 
 def socketInit(ip):
     serverID = socket.gethostbyname(socket.gethostname())
-    info = 'SERVER ID: {} port: {}'.format(serverID, port)
+    info = 'SERVER ID: {} port: {}'.format(ip, port)
     print info
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.bind((ip,port))
     sock.listen(backlog)
-    #sock.setblocking(0)
 
     return sock
 
 def hostServer(ip):
     sock = socketInit(ip)
     client, address = sock.accept()
-    #client.setblocking(0)
     print('Connected')
 
     try:

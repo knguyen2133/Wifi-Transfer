@@ -58,15 +58,15 @@ def hostServerBt():
     ip = 0
 
     try:
-        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
+        #serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
         serverTx = threading.Thread(target = serverTxThread, args=(client_sock,ipQueue,))
-        serverRx.start()
+        #serverRx.start()
         serverTx.start()
     except:
         print("Unable to start Server Thread")
 
     while (serverTx.is_alive() == True or serverRx.is_alive() == True):
-        serverRx.join()
+        #serverRx.join()
         serverTx.join()
 
     client_sock.close()
