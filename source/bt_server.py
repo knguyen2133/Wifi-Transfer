@@ -65,7 +65,7 @@ def hostServerBt():
     except:
         print("Unable to start Server Thread")
 
-    while (serverTx.is_alive() == True or serverRx.is_alive() == True):
+    while (serverTx.is_alive() == True):
         #serverRx.join()
         serverTx.join()
 
