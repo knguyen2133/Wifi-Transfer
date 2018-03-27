@@ -53,7 +53,7 @@ def txController(sock, path, input):
         sock.send(str(num))
         time.sleep(5)
 
-    elif(input == 4):
+    elif(input == '4'):
         sock.send("SHUTDOWN")
         return True
 
