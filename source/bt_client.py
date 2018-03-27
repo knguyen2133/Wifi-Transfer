@@ -51,7 +51,7 @@ def hostClientBt(addr):
 
     # Create the client socket
     sock=BluetoothSocket( RFCOMM )
-    sock.connect((host, port.PORT))
+    sock.connect((host, port))
 
     print("Connected")
     ipQueue = Queue.Queue()
