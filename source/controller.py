@@ -1,20 +1,17 @@
 import time, socket, os, sys
 import dir_commands
 
-txDone = False
-
 def txThread(sock, path):
+
     try:
+        txDone = False
         while not txDone:
             print("\nMENU:\n1.See My Directory\n2.See Peer Directory\n3.Request a File")
             print("4.Quit\n")
             userInput = raw_input(">> ")
-            txController(sock, path, userInput)
+            txDone = txController(sock, path, userInput)
 
             time.sleep(1)
-
-            if(userInput == '4'):
-                break
 
     except IOError:
         print("Tx Failed")
@@ -55,8 +52,12 @@ def txController(sock, path, input):
         num = int(raw_input(">> ")) -1
         sock.send(str(num))
         time.sleep(5)
-    else:
-        txDone = True
+
+    elif(input == 4):
+        sock.send("SHUTDOWN")
+        return True
+
+    return False
 
 def rxController(sock, path, option, peer):
     if (option == "UPDATE"):
@@ -72,3 +73,8 @@ def rxController(sock, path, option, peer):
 
     elif(option == "SENDING"):
         dir_commands.recvFile(sock, peer)
+
+    elif(option == "SHUTDOWN"):
+        return True
+
+    return False
