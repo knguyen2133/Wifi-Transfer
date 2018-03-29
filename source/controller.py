@@ -24,7 +24,7 @@ def rxThread(sock, path, peer):
         rxDone = False
         while not rxDone:
             option = sock.recv(1024)
-            rxController(sock, path, option, peer)
+            rxDone = rxController(sock, path, option, peer)
 
             time.sleep(1)
 
