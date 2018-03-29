@@ -8,27 +8,15 @@ from bluetooth import *
 import time, threading, socket, network_ip, Queue
 
 def serverTxThread(client_sock, ipQueue):
-    try:
-        sendData =  network_ip.getIp()
-        client_sock.send(sendData)
-
-        time.sleep(1)
-    except IOError:
-        print("Tx Failed")
-        pass
-
+    sendData =  network_ip.getIp()
+    client_sock.send(sendData)
     ipQueue.put(sendData)
+    time.sleep(1)
 
 def serverRxThread(client_sock):
-    try:
-        data = client_sock.recv(1024)
-        if len(data) == 0: pass
-        print("Client IP: %s" % data)
-
-        time.sleep(1)
-    except IOError:
-        print("Rx Failed")
-        pass
+    data = client_sock.recv(1024)
+    #print("Client IP: %s" % data)
+    time.sleep(1)
 
 def hostServerBt():
     print("You are Server")
@@ -58,15 +46,15 @@ def hostServerBt():
     ip = 0
 
     try:
-        #serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
+        serverRx = threading.Thread(target = serverRxThread, args=(client_sock,))
         serverTx = threading.Thread(target = serverTxThread, args=(client_sock,ipQueue,))
-        #serverRx.start()
+        serverRx.start()
         serverTx.start()
     except:
         print("Unable to start Server Thread")
 
     while (serverTx.is_alive() == True):
-        #serverRx.join()
+        serverRx.join()
         serverTx.join()
 
     client_sock.close()

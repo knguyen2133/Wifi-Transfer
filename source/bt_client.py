@@ -10,27 +10,16 @@ import sys, time, threading, socket, network_ip, Queue
 import port
 
 def clientTxThread(sock):
-    try:
-        sendData = network_ip.getIp()
-        sock.send(sendData)
-
-        time.sleep(1)
-    except IOError:
-        print("Tx Failed")
-        pass
+    sendData = network_ip.getIp()
+    sock.send(sendData)
+    time.sleep(1)
 
 def clientRxThread(sock, ipQueue):
-    try:
-        data = sock.recv(1024)
-        if len(data) == 0: pass
-        print("Server IP: %s" % data)
-
-        time.sleep(1)
-    except IOError:
-        print("Rx Failed")
-        pass
-
+    data = sock.recv(1024)
+    print("Server IP: %s" % data)
     ipQueue.put(data)
+    time.sleep(1)
+
 
 def hostClientBt(addr):
     print("You are Client")
