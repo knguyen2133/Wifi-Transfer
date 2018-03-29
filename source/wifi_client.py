@@ -1,5 +1,5 @@
 # coding: utf-8
-import socket, os, threading, sys, string
+import socket, os, threading, sys, string, time
 import controller, port
 
 PORT = port.PORT
@@ -8,6 +8,7 @@ myPath = os.path.dirname(os.path.realpath(__file__)) + '/client/'
 
 def socketInit(ip):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    time.sleep(2)
     sock.connect((ip,PORT))
     return sock
 

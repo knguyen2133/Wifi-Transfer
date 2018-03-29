@@ -13,8 +13,8 @@ def txThread(sock, path):
 
             time.sleep(1)
 
-    except IOError:
-        print("Tx Failed")
+    except (IOError, KeyboardInterrupt) as e:
+        print("Tx Thread Closed")
         pass
 
 
@@ -28,8 +28,8 @@ def rxThread(sock, path, peer):
 
             time.sleep(1)
 
-    except IOError:
-        print("Rx Failed")
+    except (IOError, KeyboardInterrupt) as e:
+        print("Rx Thread Closed")
         pass
 
 def txController(sock, path, input):

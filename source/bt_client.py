@@ -29,7 +29,7 @@ def hostClientBt(addr):
 
     if len(service_matches) == 0:
         print("Couldn't find the service")
-        return
+        return 0
 
     first_match = service_matches[0]
     port = first_match["port"]
