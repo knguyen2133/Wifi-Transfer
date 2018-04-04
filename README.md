@@ -23,4 +23,5 @@ DEPENDENCIES:
 STARTUP:
 -Must be connected to the same router/modem 
 -Must run as root
--python main.py
+-python main.py in the source directory to start
+-Wait 2-3 seconds after every input
