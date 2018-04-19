@@ -12,7 +12,6 @@ def chooseDevice(nearby_devices, res):
     for addr, name in nearby_devices:
         if i == res:
             return addr
-        print("%d. %s - %s" % (i, addr, name))
         i+=1
     return False
 

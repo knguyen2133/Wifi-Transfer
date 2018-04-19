@@ -5,12 +5,12 @@ if os.name != "nt":
     import fcntl
     import struct
 
-def get_interface_ip(ifname):
+def getInterfaceIp(ifname):
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     return socket.inet_ntoa(fcntl.ioctl(s.fileno(), 0x8915, struct.pack('256s',
                                 ifname[:15]))[20:24])
 
-def get_lan_ip():
+def getIp():
     ip = socket.gethostbyname(socket.gethostname())
     if ip.startswith("127.") and os.name != "nt":
         interfaces = [
@@ -27,7 +27,7 @@ def get_lan_ip():
             ]
         for ifname in interfaces:
             try:
-                ip = get_interface_ip(ifname)
+                ip = getInterfaceIp(ifname)
                 break
             except IOError:
                 pass
