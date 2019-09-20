@@ -1,10 +1,3 @@
-# file: rfcomm-client.py
-# auth: Albert Huang <albert@csail.mit.edu>
-# desc: simple demonstration of a client application that uses RFCOMM sockets
-#       intended for use with rfcomm-server
-#
-# $Id: rfcomm-client.py 424 2006-08-24 03:35:54Z albert $
-
 from bluetooth import *
 import sys, time, threading, socket, network_ip, Queue
 import port
