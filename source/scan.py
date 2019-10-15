@@ -26,7 +26,11 @@ def selectDevice():
 
     if count != 0:
         print("Choose which Device you would like to connect with:")
-        res = int(raw_input())
+        try:
+            res = int(raw_input())
+        except:
+            print("Needs to be a numerical value")
+            return False
     else:
         print("No Devices found. Restarting...")
         return False
